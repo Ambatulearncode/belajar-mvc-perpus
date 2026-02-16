@@ -1,0 +1,17 @@
+{
+  "name": "ambatucode/belajar-mvc-perpus",
+  "description": "Sistem Perpustakaan MVC dengan PHP Native",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/",
+      "Core\\": "core/"
+    }
+  },
+  "authors": [
+    {
+      "name": "ambatucode"
+    }
+  ],
+  "require": {}
+}
