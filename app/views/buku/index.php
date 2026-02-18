@@ -1,120 +1,80 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daftar Buku - Perpustakaan MVC</title>
-    
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Font Awesome untuk icon (opsional) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        .table-container {
-            margin-top: 30px;
-        }
-        .header-title {
-            margin: 30px 0 20px 0;
-            color: #333;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-        }
-        .btn-add {
-            margin-bottom: 20px;
-        }
-    </style>
-</head>
-<body>
-    
-    <div class="container">
-        
-        <!-- Header -->
-        <div class="row">
-            <div class="col-12">
-                <h1 class="header-title">
-                    <i class="fas fa-book me-2"></i>
-                    Daftar Buku Perpustakaan
-                </h1>
-            </div>
-        </div>
-        
-        <!-- Tombol Tambah Buku (akan aktif nanti) -->
-        <div class="row btn-add">
-            <div class="col-12">
-                <a href="#" class="btn btn-primary">
-                    <i class="fas fa-plus me-2"></i>Tambah Buku
-                </a>
-            </div>
-        </div>
-        
-        <!-- Tabel Daftar Buku -->
-        <div class="row">
-            <div class="col-12 table-container">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped table-hover">
-                        <thead class="table-primary">
-                            <tr>
-                                <th>No</th>
-                                <th>Judul Buku</th>
-                                <th>Penulis</th>
-                                <th>Penerbit</th>
-                                <th>Tahun</th>
-                                <th>Stok</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-    <?php 
-    // TODO: Loop data $buku dari controller
-    $no = 1;
-    foreach ($buku as $row):
-    ?>
-    <tr>
-        <td><?= $no++ ?></td>
-        <td><?= htmlspecialchars($row['judul']) ?></td>
-        <td><?= htmlspecialchars($row['penulis']) ?></td>
-        <td><?= htmlspecialchars($row['penerbit']) ?></td>
-        <td><?= $row['tahun_terbit'] ?></td>
-        <td>
-            <span class="badge <?= $row['stok'] > 0 ? 'bg-success' : 'bg-danger' ?>">
-                <?= $row['stok'] ?>
-            </span>
-        </td>
-        <td>
-            <a href="#" class="btn btn-sm btn-info" title="Detail">
-                <i class="fas fa-eye"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-warning" title="Edit">
-                <i class="fas fa-edit"></i>
-            </a>
-            <a href="#" class="btn btn-sm btn-danger" title="Hapus">
-                <i class="fas fa-trash"></i>
-            </a>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Info Footer -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <p class="text-muted">
-                    <i class="fas fa-database me-1"></i>
-                    Total Buku: <span class="fw-bold"><?= isset($buku) ? count($buku) : 0 ?></span>
-                </p>
-            </div>
-        </div>
-        
+<!-- Header Title -->
+<div class="header-title">
+    <i class="bi bi-book"></i>
+    <h1>Daftar Buku Perpustakaan</h1>
+</div>
+
+<!-- Tombol Tambah -->
+<div style="margin-bottom: 2rem;">
+    <a href="index.php?action=create" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i>
+        Tambah Buku Baru
+    </a>
+</div>
+
+<!-- Table Container -->
+<div class="table-container">
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Judul Buku</th>
+                    <th>Penulis</th>
+                    <th>Penerbit</th>
+                    <th>Tahun</th>
+                    <th>Stok</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (empty($buku)): ?>
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 3rem;">
+                            <i class="bi bi-emoji-frown" style="font-size: 3rem; color: var(--gray);"></i>
+                            <p style="color: var(--gray); margin-top: 1rem;">Belum ada data buku</p>
+                        </td>
+                    </tr>
+                <?php else: ?>
+                    <?php $no = 1; ?>
+                    <?php foreach ($buku as $row): ?>
+                        <tr>
+                            <td><?= $no++ ?></td>
+                            <td><strong><?= htmlspecialchars($row['judul']) ?></strong></td>
+                            <td><?= htmlspecialchars($row['penulis']) ?></td>
+                            <td><?= htmlspecialchars($row['penerbit']) ?></td>
+                            <td><?= $row['tahun_terbit'] ?></td>
+                            <td>
+                                <span class="badge <?= $row['stok'] > 0 ? 'badge-success' : 'badge-danger' ?>">
+                                    <i class="bi <?= $row['stok'] > 0 ? 'bi-check-circle' : 'bi-exclamation-circle' ?>"></i>
+                                    <?= $row['stok'] ?> Tersedia
+                                </span>
+                            </td>
+                            <td>
+                                <div style="display: flex; gap: 0.5rem;">
+                                    <a href="#" class="btn btn-sm btn-info" title="Detail">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="index.php?action=edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-danger" title="Hapus">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
-    
-    <!-- Bootstrap JS (optional, untuk interaktivitas nanti) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
-</body>
-</html>
+
+    <!-- Info Footer Table -->
+    <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid rgba(0,0,0,0.05);">
+        <p style="color: var(--secondary); display: flex; align-items: center; gap: 0.5rem;">
+            <i class="bi bi-database"></i>
+            Total Buku: <strong><?= count($buku) ?></strong> item
+        </p>
+    </div>
+</div>
