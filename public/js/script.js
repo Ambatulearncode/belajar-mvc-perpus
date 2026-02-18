@@ -59,3 +59,16 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// delete confirmation KHUSUS untuk tombol hapus buku
+document.addEventListener("DOMContentLoaded", function () {
+  const deleteButtons = document.querySelectorAll(".btn-delete-buku"); // pakai class spesifik
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      if (confirm("Apakah Anda yakin ingin menghapus buku ini?")) {
+        window.location.href = this.href;
+      }
+    });
+  });
+});

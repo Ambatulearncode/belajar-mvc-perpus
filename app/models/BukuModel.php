@@ -52,6 +52,16 @@ class BukuModel
         return $stmt->rowCount() > 0;
     }
 
+    public function delete(int $id)
+    {
+        $query = "DELETE FROM buku WHERE id = :id";
+        $stmt = $this->db->prepare($query);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+
+        return $stmt->rowCount() > 0;
+    }
+
     public function update(int $id, array $data)
     {
         $query = "UPDATE buku SET judul = :judul, penulis = :penulis, penerbit = :penerbit, tahun_terbit = :tahun_terbit, stok = :stok WHERE id = :id";

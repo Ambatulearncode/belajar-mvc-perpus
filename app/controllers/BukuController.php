@@ -58,6 +58,23 @@ class BukuController extends Controller
         $this->view('buku/create');
     }
 
+    public function delete($id)
+    {
+        $buku = $this->bukuModel->getBukuById($id);
+        if ($buku) {
+            if ($this->bukuModel->delete($id)) {
+                header('Location: index.php?action=index');
+                exit();
+            } else {
+                header('Location: index.php?action=index&error=Gagal menghapus buku');
+                exit();
+            }
+        } else {
+            header('Location: index.php?action=index&error=Buku tidak ditemukan');
+            exit();
+        }
+    }
+
     public function store()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

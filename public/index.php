@@ -16,6 +16,9 @@ if ($action === 'create') {
 } elseif ($action === 'update') {
     $id = $_GET['id'] ?? 0;
     $controller->update($id);
+} elseif ($action === 'delete') {
+    $id = $_GET['id'] ?? 0;
+    $controller->delete($id);
 } else {
     $controller->index();
 }

@@ -58,7 +58,7 @@
                                     <a href="index.php?action=edit&id=<?= $row['id'] ?>" class="btn btn-sm btn-warning" title="Edit">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="#" class="btn btn-sm btn-danger" title="Hapus">
+                                    <a href="index.php?action=delete&id=<?= $row['id'] ?>" class="btn btn-sm btn-danger btn-delete-buku" title="Hapus">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
